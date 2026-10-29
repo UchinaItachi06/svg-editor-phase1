@@ -64,19 +64,27 @@ SVG 读入支持上述六种元素、嵌套、公共样式以及常用文字展�
 
 ## Git 与远程提交
 
-本地仓库包含分阶段提交及 final 标签。提交作者 SVG Lab Development / svg-lab@localhost 是本次协作使用的项目本地标识，不代表真实个人邮箱。没有伪造提交时间。
+远程仓库：[UchinaItachi06/svg-editor-phase1](https://github.com/UchinaItachi06/svg-editor-phase1)，私有仓库。main 保留分阶段开发历史及 GitHub 初始化提交；final 标签指向最终交付版本。
 
-远程仓库仍待建立和上传；GitHub 连接已确认，但可用接口不支持创建仓库，浏览器和桌面控制尝试均超时。因此当前不能声称满足远程提交要求。请在 GitHub 创建一个空仓库（建议名称 svg-editor-phase1、私有，不添加 README/许可证/gitignore），然后在项目目录执行：
+本地开发采用 SVG Lab Development / svg-lab@localhost 作为项目作者标识，不代表真实个人邮箱。没有伪造提交时间。GitHub 新仓库的初始化 README 与完整项目说明发生新增冲突，合并后保留本说明；原初始化提交仍可在 Git 历史中查阅。
+
+核对远程分支和标签：
 
 ```text
-git remote add origin <你的仓库 HTTPS 地址>
-git push -u origin main
-git push origin final
+git remote -v
+git ls-remote origin refs/heads/main refs/tags/final
 ```
 
-如果由助手继续处理，将仓库链接发回聊天即可。推送可能需要你在 GitHub 完成登录或给新仓库授权。
+新电脑上获取项目：
 
-课程材料没有具体截止时间，最终仍需核对课程平台。请在正式提交前阅读代码和文档，确认其中的设计取舍，并按教师要求决定是否让教师获得私有仓库访问权限。
+```text
+git clone https://github.com/UchinaItachi06/svg-editor-phase1.git
+cd svg-editor-phase1
+npm ci
+npm run check
+```
+
+私有仓库需要有权限的 GitHub 账号。课程材料没有具体截止时间，仍需核对课程平台，并按老师要求提供仓库访问权限。
 
 ## 项目内容
 
