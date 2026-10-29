@@ -11,6 +11,7 @@ export abstract class Shape {
   abstract details(): string;
   children(): readonly Shape[] { return []; }
   isContainer(): boolean { return false; }
+  acceptsText(): boolean { return false; }
   content(): string { return ''; }
   attributes(): Record<string, string> { return { id: this.id, ...Object.fromEntries(this.presentation) }; }
   set(attr: string, value: string): void {
