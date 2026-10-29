@@ -1,6 +1,7 @@
 export class Values {
   static number(value: string | number, name = 'number'): number {
-    if (typeof value === 'string' && !/^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/.test(value)) throw new Error('invalid ' + name + ': ' + value);
+    if (typeof value === 'string' && !/^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/.test(value))
+      throw new Error('invalid ' + name + ': ' + value);
     const result = Number(value);
     if (!Number.isFinite(result)) throw new Error('invalid ' + name + ': ' + value);
     return result;
@@ -20,7 +21,8 @@ export class Values {
     return id;
   }
   static xml(value: string): string {
-    if (/[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]/u.test(value)) throw new Error('invalid XML character');
+    if (/[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]/u.test(value))
+      throw new Error('invalid XML character');
     return value;
   }
 }
