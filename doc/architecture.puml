@@ -1,0 +1,20 @@
+@startuml
+skinparam componentStyle rectangle
+package "src" {
+  [main] --> [cli]
+  [main] --> [infrastructure]
+  [cli] --> [application]
+  [cli] --> [commands]
+  [cli] --> [model]
+  [application] ..> [commands] : type only
+  [application] --> [model]
+  [commands] --> [model]
+  [infrastructure] ..> [application] : DocumentStore interface
+  [infrastructure] --> [model]
+}
+note bottom of [model]
+Shape / GeometryShape
+Rect, Circle, Ellipse, Line, Text, Group
+Document / ShapeFactory / Values
+end note
+@enduml

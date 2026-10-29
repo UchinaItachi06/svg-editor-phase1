@@ -1,0 +1,376 @@
+TAP version 13
+# Subtest: every production class has its own matching file
+ok 1 - every production class has its own matching file
+  ---
+  duration_ms: 14.1478
+  type: 'test'
+  ...
+# Subtest: production imports obey declared module directions and core has no external IO
+ok 2 - production imports obey declared module directions and core has no external IO
+  ---
+  duration_ms: 15.2194
+  type: 'test'
+  ...
+# Subtest: no tag switches or procedural exported functions in production
+ok 3 - no tag switches or procedural exported functions in production
+  ---
+  duration_ms: 13.0872
+  type: 'test'
+  ...
+# Subtest: no-document guard, help, comments and unknown commands
+ok 4 - no-document guard, help, comments and unknown commands
+  ---
+  duration_ms: 1.8369
+  type: 'test'
+  ...
+# Subtest: create and inspect rect
+ok 5 - create and inspect rect
+  ---
+  duration_ms: 1.4015
+  type: 'test'
+  ...
+# Subtest: create and inspect circle
+ok 6 - create and inspect circle
+  ---
+  duration_ms: 0.337
+  type: 'test'
+  ...
+# Subtest: create and inspect ellipse
+ok 7 - create and inspect ellipse
+  ---
+  duration_ms: 0.3731
+  type: 'test'
+  ...
+# Subtest: create and inspect line
+ok 8 - create and inspect line
+  ---
+  duration_ms: 0.3592
+  type: 'test'
+  ...
+# Subtest: create and inspect text
+ok 9 - create and inspect text
+  ---
+  duration_ms: 0.4028
+  type: 'test'
+  ...
+# Subtest: create and inspect g
+ok 10 - create and inspect g
+  ---
+  duration_ms: 0.3075
+  type: 'test'
+  ...
+# Subtest: create in nested groups and tree subtree
+ok 11 - create in nested groups and tree subtree
+  ---
+  duration_ms: 0.6739
+  type: 'test'
+  ...
+# Subtest: id is unique and case-sensitive; delete makes ids available
+ok 12 - id is unique and case-sensitive; delete makes ids available
+  ---
+  duration_ms: 0.5058
+  type: 'test'
+  ...
+# Subtest: unknown type includes future box and unknown attribute
+ok 13 - unknown type includes future box and unknown attribute
+  ---
+  duration_ms: 0.512
+  type: 'test'
+  ...
+# Subtest: quoted content, empty content, escaped quotes and hash colors
+ok 14 - quoted content, empty content, escaped quotes and hash colors
+  ---
+  duration_ms: 0.4559
+  type: 'test'
+  ...
+# Subtest: literal in in quoted text does not become a parent clause
+ok 15 - literal in in quoted text does not become a parent clause
+  ---
+  duration_ms: 0.8589
+  type: 'test'
+  ...
+# Subtest: invalid parent and invalid syntax leave state unchanged
+ok 16 - invalid parent and invalid syntax leave state unchanged
+  ---
+  duration_ms: 0.3312
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: scale r 0
+ok 17 - reject invalid numbers atomically: scale r 0
+  ---
+  duration_ms: 0.3219
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: scale r -1
+ok 18 - reject invalid numbers atomically: scale r -1
+  ---
+  duration_ms: 0.1782
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: scale r NaN
+ok 19 - reject invalid numbers atomically: scale r NaN
+  ---
+  duration_ms: 0.1597
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: move r Infinity 0
+ok 20 - reject invalid numbers atomically: move r Infinity 0
+  ---
+  duration_ms: 0.1521
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: move r 0x10 0
+ok 21 - reject invalid numbers atomically: move r 0x10 0
+  ---
+  duration_ms: 0.1165
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: set r width -1
+ok 22 - reject invalid numbers atomically: set r width -1
+  ---
+  duration_ms: 0.1623
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: set r stroke-width -1
+ok 23 - reject invalid numbers atomically: set r stroke-width -1
+  ---
+  duration_ms: 0.1395
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: create circle c 0 0 -1
+ok 24 - reject invalid numbers atomically: create circle c 0 0 -1
+  ---
+  duration_ms: 0.1362
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: init 0 1
+ok 25 - reject invalid numbers atomically: init 0 1
+  ---
+  duration_ms: 0.114
+  type: 'test'
+  ...
+# Subtest: reject invalid numbers atomically: canvas -1 2
+ok 26 - reject invalid numbers atomically: canvas -1 2
+  ---
+  duration_ms: 0.1711
+  type: 'test'
+  ...
+# Subtest: move and scale all geometry recursively including line endpoints and text positions
+ok 27 - move and scale all geometry recursively including line endpoints and text positions
+  ---
+  duration_ms: 0.635
+  type: 'test'
+  ...
+# Subtest: group style and leaf style survive clone and undo
+ok 28 - group style and leaf style survive clone and undo
+  ---
+  duration_ms: 0.4016
+  type: 'test'
+  ...
+# Subtest: group keeps document order rather than argument order and is one undo unit
+ok 29 - group keeps document order rather than argument order and is one undo unit
+  ---
+  duration_ms: 0.5075
+  type: 'test'
+  ...
+# Subtest: cross-parent grouping uses first preorder selected node parent and slot
+ok 30 - cross-parent grouping uses first preorder selected node parent and slot
+  ---
+  duration_ms: 0.2528
+  type: 'test'
+  ...
+# Subtest: ancestor plus descendant grouping, duplicate members and cycle moves fail atomically
+ok 31 - ancestor plus descendant grouping, duplicate members and cycle moves fail atomically
+  ---
+  duration_ms: 0.317
+  type: 'test'
+  ...
+# Subtest: ungroup nested group occupies exact slot; root ungroup is forbidden
+ok 32 - ungroup nested group occupies exact slot; root ungroup is forbidden
+  ---
+  duration_ms: 0.4462
+  type: 'test'
+  ...
+# Subtest: addto appends and undo restores parent and exact order
+ok 33 - addto appends and undo restores parent and exact order
+  ---
+  duration_ms: 0.2501
+  type: 'test'
+  ...
+# Subtest: front and back reorder only siblings, reversible
+ok 34 - front and back reorder only siblings, reversible
+  ---
+  duration_ms: 1.0857
+  type: 'test'
+  ...
+# Subtest: delete subtree and undo restore complete hierarchy and styles
+ok 35 - delete subtree and undo restore complete hierarchy and styles
+  ---
+  duration_ms: 0.3651
+  type: 'test'
+  ...
+# Subtest: display commands preserve undo/redo; successful new edit discards redo
+ok 36 - display commands preserve undo/redo; successful new edit discards redo
+  ---
+  duration_ms: 0.1713
+  type: 'test'
+  ...
+# Subtest: failed edits preserve redo
+ok 37 - failed edits preserve redo
+  ---
+  duration_ms: 0.164
+  type: 'test'
+  ...
+# Subtest: canvas query does not block history; resize and init introduce barriers
+ok 38 - canvas query does not block history; resize and init introduce barriers
+  ---
+  duration_ms: 0.2116
+  type: 'test'
+  ...
+# Subtest: geometry overflow fails transaction without partial group move
+ok 39 - geometry overflow fails transaction without partial group move
+  ---
+  duration_ms: 0.2675
+  type: 'test'
+  ...
+# Subtest: XML round trip preserves all six types, nesting, styles, text and z-order
+ok 40 - XML round trip preserves all six types, nesting, styles, text and z-order
+  ---
+  duration_ms: 4.92
+  type: 'test'
+  ...
+# Subtest: missing ids reserve all explicit ids before assigning deterministic names
+ok 41 - missing ids reserve all explicit ids before assigning deterministic names
+  ---
+  duration_ms: 0.6909
+  type: 'test'
+  ...
+# Subtest: external SVG preserves allowed presentation and treats data-kind box as plain group
+ok 42 - external SVG preserves allowed presentation and treats data-kind box as plain group
+  ---
+  duration_ms: 0.3504
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: duplicate id
+ok 43 - reject unsupported or invalid external SVG: duplicate id
+  ---
+  duration_ms: 0.6673
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: malformed
+ok 44 - reject unsupported or invalid external SVG: malformed
+  ---
+  duration_ms: 0.2516
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: unknown shape
+ok 45 - reject unsupported or invalid external SVG: unknown shape
+  ---
+  duration_ms: 0.2086
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: transform
+ok 46 - reject unsupported or invalid external SVG: transform
+  ---
+  duration_ms: 0.1871
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: DTD
+ok 47 - reject unsupported or invalid external SVG: DTD
+  ---
+  duration_ms: 0.1008
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: namespace
+ok 48 - reject unsupported or invalid external SVG: namespace
+  ---
+  duration_ms: 0.1571
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: viewBox
+ok 49 - reject unsupported or invalid external SVG: viewBox
+  ---
+  duration_ms: 0.1839
+  type: 'test'
+  ...
+# Subtest: reject unsupported or invalid external SVG: nested text markup
+ok 50 - reject unsupported or invalid external SVG: nested text markup
+  ---
+  duration_ms: 0.2337
+  type: 'test'
+  ...
+# Subtest: saved attribute whitespace and text carriage returns survive round trip
+ok 51 - saved attribute whitespace and text carriage returns survive round trip
+  ---
+  duration_ms: 0.4356
+  type: 'test'
+  ...
+# Subtest: file save barriers, default path, read barrier and warning outputs
+ok 52 - file save barriers, default path, read barrier and warning outputs
+  ---
+  duration_ms: 10.295
+  type: 'test'
+  ...
+# Subtest: file failures preserve document, history and current save path
+ok 53 - file failures preserve document, history and current save path
+  ---
+  duration_ms: 2.7435
+  type: 'test'
+  ...
+# Subtest: malformed read preserves redo and previous document
+ok 54 - malformed read preserves redo and previous document
+  ---
+  duration_ms: 3.9435
+  type: 'test'
+  ...
+# Subtest: batch CLI processes comments and Unicode; errors set exit code and execution continues
+ok 55 - batch CLI processes comments and Unicode; errors set exit code and execution continues
+  ---
+  duration_ms: 216.3238
+  type: 'test'
+  ...
+# Subtest: document boundary rejects duplicate subtree ids and unowned parents
+ok 56 - document boundary rejects duplicate subtree ids and unowned parents
+  ---
+  duration_ms: 0.4651
+  type: 'test'
+  ...
+# Subtest: circle and ellipse scale centers and radii with floating point coordinates
+ok 57 - circle and ellipse scale centers and radii with floating point coordinates
+  ---
+  duration_ms: 3.3674
+  type: 'test'
+  ...
+# Subtest: all allowed geometry setters change only targeted geometry
+ok 58 - all allowed geometry setters change only targeted geometry
+  ---
+  duration_ms: 2.7077
+  type: 'test'
+  ...
+# Subtest: unnamed nested shapes round trip through CLI with defaults omitted
+ok 59 - unnamed nested shapes round trip through CLI with defaults omitted
+  ---
+  duration_ms: 0.3952
+  type: 'test'
+  ...
+# Subtest: failed save keeps prior default path and does not block undo
+ok 60 - failed save keeps prior default path and does not block undo
+  ---
+  duration_ms: 10.7986
+  type: 'test'
+  ...
+# Subtest: init read save resize each block both undo and redo, new edit cannot cross barrier
+ok 61 - init read save resize each block both undo and redo, new edit cannot cross barrier
+  ---
+  duration_ms: 0.6171
+  type: 'test'
+  ...
+1..61
+# tests 61
+# suites 0
+# pass 61
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 538.085
