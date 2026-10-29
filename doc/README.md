@@ -14,23 +14,13 @@
 | src/main.ts | 组装对象，启动程序 | 仅入口，无类 |
 | test | 功能、集成与架构测试 | 不属于生产模块 |
 
-组件图如下，另有可单独渲染的 architecture.puml：
+组件图已用 PlantUML 在本地渲染，可直接查看：
 
-```plantuml
-@startuml
-skinparam componentStyle rectangle
-[main] --> [cli]
-[main] --> [infrastructure]
-[cli] --> [application]
-[cli] --> [commands]
-[cli] --> [model]
-[application] ..> [commands] : type only
-[application] --> [model]
-[commands] --> [model]
-[infrastructure] ..> [application] : DocumentStore interface
-[infrastructure] --> [model]
-@enduml
-```
+![模块依赖组件图](architecture.png)
+
+[PlantUML 源码](architecture.puml) · [矢量图](architecture.svg)
+
+图中实线表示生产代码的运行时依赖，虚线表示仅用于 TypeScript 类型的依赖。源码和图片一并随仓库提交。
 
 CLI 的 CommandRouter 同时承担参数适配和用例协调。对本阶段命令数量，这是可检查的集中入口；未来新增鼠标或 agent 通道时，应抽出可复用的用例服务，避免让第二个界面依赖 CLI。
 
@@ -102,9 +92,44 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 | 验收扩展 | 增加架构检查、全部几何 setter、小数缩放、失败保存后路径保持等测试 | 共 61 项通过；原始报告见 validation/tests.tap |
 | 演示验收 | 回放作业中的两节点流程图版本 A，生成真实 SVG | 8 个元素，移动撤销成功；Edge 无头浏览器实际打开并截图，图像已目视检查 |
 | 独立恢复验收 | 从 Git bundle 克隆到新目录后，发现 Windows Git 的自动 CRLF 转换导致格式检查失败 | 增加 .gitattributes 固定源码 LF、启动脚本 CRLF，重新打包后再验证独立恢复 |
-| 远程仓库 | 前期接口不支持建库、浏览器控制超时；用户随后手动创建私有仓库，Git 已成功获取远程初始化提交 | 合并保留初始化提交与本地开发历史，README 使用完整项目说明；发布目标为 main 和 final，仓库为 UchinaItachi06/svg-editor-phase1 |
+| 远程仓库 | 前期接口不支持建库、浏览器控制超时；用户随后手动创建私有仓库，Git 已成功获取远程初始化提交 | 合并保留初始化提交与本地开发历史，README 使用完整项目说明；已推送 main 和 final，仓库为 UchinaItachi06/svg-editor-phase1 |
 
 本地提交按骨架、模型、命令与历史、SVG 与 CLI、测试、文档逐步进行。提交时间为实际时间；作者采用项目本地标识 SVG Lab Development，不冒充学生个人邮箱。
+
+
+### 学生手动验收与实际判断
+
+以下内容依据学生实际执行后发送的终端输出整理；不把助手的开发排错或代码讲解记为学生独立完成的活动。
+
+学生在自己的 PowerShell 中执行 npm.cmd run check，TypeScript、格式检查均通过，61 项测试全部通过。随后在 CLI 中实际执行创建、容器移动、撤销、重做、保存、错误输入和删除恢复。
+
+| 检查 | 实际观察 | 对应判断 |
+|---|---|---|
+| 创建和 in 归属 | tree 显示 node 下有 r 与 t 两个节点 | 图形归属在创建时成立 |
+| move / undo / redo | 矩形 x 从 100 变为 150，undo 后回到 100；redo 后保存的文件中 r 的 x=150、t 的 x=180 | 移动容器能传递到文字与矩形，撤销和重做恢复相应状态 |
+| save 后 undo | 输出 error: undo not allowed after io command | 保存后历史屏障符合要求，这条错误是预期行为 |
+| 重复 id | create rect r 被拒绝 | 已有 id 不能重复创建 |
+| 非法缩放 | scale node 0 被拒绝 | 缩放比例必须为正数 |
+| 容器循环 | addto node node 被拒绝 | 不允许把容器移入自身 |
+| 失败原子性 | 上述三次失败后，tree 的层次、坐标和颜色保持不变 | 这些失败操作未产生部分修改 |
+| 删除与整体撤销 | delete node 后只剩空画布，undo 一次后整棵子树恢复 | 容器删除包含子孙，且整条删除是一个撤销单元 |
+
+本轮手动验收未发现这些场景中的功能错误。它为上述行为提供实际证据，不等同于验证了全部 SVG 输入或所有边界。
+
+证据：[学生 CLI 原始输出](validation/student-cli-transcript.txt)、[学生运行检查的原始输出](validation/student-automated-check.txt)、[学生保存的 SVG](validation/student-demo.svg)。浏览器预览由助手另行完成，见下图；学生没有提供亲自浏览器检查的反馈，因此不将该项写成学生的个人观察。
+
+![学生保存文件的浏览器预览（助手渲染）](validation/student-demo-preview.png)
+
+### 关键实现说明（助手整理，供学生复核）
+
+本次补充将手动观察对应到实际代码。下面的代码导读是讲解材料，不作为学生已经完成阅读或掌握设计的证明：
+
+- Command：CommandRouter 把 delete node 适配为 DeleteCommand；Session.execute 调用命令，成功后才进入 History。
+- 快照撤销：EditCommand.execute 在文档副本上执行 apply，成功后保存 before/after；undo 与 redo 返回相应快照的深拷贝。
+- Composite：Group.move/scale 遍历 Shape 子节点并调用同名方法；叶子自己处理几何属性，命令无需逐一判断图形标签。
+- 失败原子性：apply 抛错时 Session 不替换当前文档，History.record 不执行，因此失败不污染文档或历史。
+
+完整调用链、代码入口和设计取舍见 [代码导读](代码导读.md)。
 
 ## 一致性自查
 
@@ -137,6 +162,10 @@ npm run check
 
 已在 Windows、Node.js 24.19.0 验证：TypeScript strict 与 unused 检查通过，Prettier 格式检查通过，61 项自动测试全部通过、零跳过。报告保存在 validation/tests.tap。
 
+### 人工验收证据
+
+学生提供的两轮真实操作已纳入本文件的过程记录；原始终端输出、保存文件及助手渲染预览位于 validation/。学生手动验收与助手自动检查分开标注。
+
 ### 功能覆盖
 
 | 验证类别 | 覆盖内容 |
@@ -153,4 +182,4 @@ npm run check
 
 完整 SVG 标准兼容、插件系统、大文档性能与交互终端的所有平台差异尚未覆盖。快照历史没有容量上限。静态架构检查不替代人工审阅；有限测试不能证明所有输入正确。
 
-本地代码和文档已准备，最终版本由 Git final 标签定位。远程仓库为 https://github.com/UchinaItachi06/svg-editor-phase1，采用合并保留 GitHub 初始化提交及全部开发历史；main 和 final 为本次发布目标。截止时间未从课程材料中获得，正式提交前仍需核对课程平台及私有仓库访问权限。若教师要求导入 transform 示例，应先扩展实现与测试，再确定最终提交版本。
+本地代码和文档已准备，最终版本由 Git final 标签定位。远程仓库为 https://github.com/UchinaItachi06/svg-editor-phase1，采用合并保留 GitHub 初始化提交及全部开发历史；远程 main 与 final 对应本次交付版本，代码、文档和验收证据一并发布。截止时间未从课程材料中获得，正式提交前仍需核对课程平台及私有仓库访问权限。若教师要求导入 transform 示例，应先扩展实现与测试，再确定最终提交版本。

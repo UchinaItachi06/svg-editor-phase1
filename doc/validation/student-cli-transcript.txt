@@ -1,0 +1,61 @@
+# 来源：学生在本次对话中提供的实际 CLI 输出；两段会话按执行顺序连接。
+# 以下保留实际命令与结果，没有补写未执行的浏览器检查或学习活动。
+svg> init 800 600
+canvas 800x600 created
+svg> create g node
+g#node created
+svg>    create rect r 100 100 160 60 red in node
+rect#r created in g#node
+svg> create text t 130 135 "开始" in node
+text#t created in g#node
+svg> tree
+svg (800x600)
+└── g#node
+    ├── rect#r  x=100 y=100 width=160 height=60 fill=red
+    └── text#t  x=130 y=135 "开始"
+svg> move node 50 0
+g#node moved by (50,0)
+svg> show r
+rect#r  parent=g#node
+  fill=red
+  x=150
+  y=100
+  width=160
+  height=60
+svg> undo
+undone: move
+svg> show r
+rect#r  parent=g#node
+  fill=red
+  x=100
+  y=100
+  width=160
+  height=60
+svg> redo
+redone: move
+svg> save my-demo.svg
+saved to my-demo.svg (3 elements)
+svg> undo
+error: undo not allowed after io command
+svg> create rect r 0 0 10 10 blue
+error: id already exists: r
+svg> scale node 0
+error: scale factor must be positive
+svg> addto node node
+error: cannot move a container into its own descendant: node
+svg> tree
+svg (800x600)
+└── g#node
+    ├── rect#r  x=150 y=100 width=160 height=60 fill=red
+    └── text#t  x=180 y=135 "开始"
+svg> delete node
+g#node deleted
+svg> tree
+svg (800x600)
+svg> undo
+undone: delete
+svg> tree
+svg (800x600)
+└── g#node
+    ├── rect#r  x=150 y=100 width=160 height=60 fill=red
+    └── text#t  x=180 y=135 "开始"

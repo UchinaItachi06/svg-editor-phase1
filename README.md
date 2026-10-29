@@ -55,6 +55,9 @@ npm run cli < examples/flowchart.commands
 - [示例运行记录](doc/validation/flowchart-transcript.txt)
 - [测试原始报告](doc/validation/tests.tap)
 - [作业文档：架构、协作过程、一致性与质量保证](doc/README.md)
+- [关键代码导读](doc/代码导读.md)
+- [提交前核对](doc/提交核对.md)
+- [学生手动验收原始输出](doc/validation/student-cli-transcript.txt)
 
 ## 范围说明
 

@@ -1,4 +1,12 @@
 @startuml
+!pragma layout smetana
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam ArrowColor #476579
+skinparam componentBackgroundColor #EDF5FA
+skinparam componentBorderColor #476579
+skinparam packageBackgroundColor #FFFFFF
 skinparam componentStyle rectangle
 package "src" {
   [main] --> [cli]

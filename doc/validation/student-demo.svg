@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <g id="node">
+    <rect id="r" fill="red" x="150" y="100" width="160" height="60"/>
+    <text id="t" x="180" y="135">开始</text>
+  </g>
+</svg>

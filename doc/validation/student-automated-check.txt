@@ -1,0 +1,95 @@
+PS C:\Users\lenovo> cd "C:\Users\lenovo\Documents\ChatGPT\高级软件开发技术\outputs\svg-editor"
+PS C:\Users\lenovo\Documents\ChatGPT\高级软件开发技术\outputs\svg-editor> npm.cmd run check
+
+> svg-editor-phase1@0.1.0 check
+> npm run typecheck && npm run format:check && npm test
+
+
+> svg-editor-phase1@0.1.0 typecheck
+> tsc --noEmit
+
+
+> svg-editor-phase1@0.1.0 format:check
+> prettier --check src test package.json tsconfig.json
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> svg-editor-phase1@0.1.0 test
+> node --test test/*.test.ts
+
+✔ every production class has its own matching file (13.0478ms)
+✔ production imports obey declared module directions and core has no external IO (13.4ms)
+✔ no tag switches or procedural exported functions in production (11.4873ms)
+✔ no-document guard, help, comments and unknown commands (1.9491ms)
+✔ create and inspect rect (1.4361ms)
+✔ create and inspect circle (0.3606ms)
+✔ create and inspect ellipse (0.5084ms)
+✔ create and inspect line (0.4565ms)
+✔ create and inspect text (0.4055ms)
+✔ create and inspect g (0.3112ms)
+✔ create in nested groups and tree subtree (0.6853ms)
+✔ id is unique and case-sensitive; delete makes ids available (0.4646ms)
+✔ unknown type includes future box and unknown attribute (0.4873ms)
+✔ quoted content, empty content, escaped quotes and hash colors (0.4602ms)
+✔ literal in in quoted text does not become a parent clause (1.0185ms)
+✔ invalid parent and invalid syntax leave state unchanged (0.3463ms)
+✔ reject invalid numbers atomically: scale r 0 (0.3187ms)
+✔ reject invalid numbers atomically: scale r -1 (0.1709ms)
+✔ reject invalid numbers atomically: scale r NaN (0.1561ms)
+✔ reject invalid numbers atomically: move r Infinity 0 (0.157ms)
+✔ reject invalid numbers atomically: move r 0x10 0 (0.1333ms)
+✔ reject invalid numbers atomically: set r width -1 (0.1566ms)
+✔ reject invalid numbers atomically: set r stroke-width -1 (0.164ms)
+✔ reject invalid numbers atomically: create circle c 0 0 -1 (0.1353ms)
+✔ reject invalid numbers atomically: init 0 1 (0.1157ms)
+✔ reject invalid numbers atomically: canvas -1 2 (0.1726ms)
+✔ move and scale all geometry recursively including line endpoints and text positions (0.6327ms)
+✔ group style and leaf style survive clone and undo (0.4098ms)
+✔ group keeps document order rather than argument order and is one undo unit (0.5014ms)
+✔ cross-parent grouping uses first preorder selected node parent and slot (0.252ms)
+✔ ancestor plus descendant grouping, duplicate members and cycle moves fail atomically (0.3185ms)
+✔ ungroup nested group occupies exact slot; root ungroup is forbidden (1.2448ms)
+✔ addto appends and undo restores parent and exact order (0.2849ms)
+✔ front and back reorder only siblings, reversible (0.5218ms)
+✔ delete subtree and undo restore complete hierarchy and styles (0.3834ms)
+✔ display commands preserve undo/redo; successful new edit discards redo (0.184ms)
+✔ failed edits preserve redo (0.1856ms)
+✔ canvas query does not block history; resize and init introduce barriers (0.2312ms)
+✔ geometry overflow fails transaction without partial group move (0.2558ms)
+✔ XML round trip preserves all six types, nesting, styles, text and z-order (7.2973ms)
+✔ missing ids reserve all explicit ids before assigning deterministic names (1.1287ms)
+✔ external SVG preserves allowed presentation and treats data-kind box as plain group (0.5202ms)
+✔ reject unsupported or invalid external SVG: duplicate id (0.6091ms)
+✔ reject unsupported or invalid external SVG: malformed (0.323ms)
+✔ reject unsupported or invalid external SVG: unknown shape (0.3479ms)
+✔ reject unsupported or invalid external SVG: transform (0.3296ms)
+✔ reject unsupported or invalid external SVG: DTD (0.1983ms)
+✔ reject unsupported or invalid external SVG: namespace (0.2663ms)
+✔ reject unsupported or invalid external SVG: viewBox (0.2733ms)
+✔ reject unsupported or invalid external SVG: nested text markup (0.39ms)
+✔ saved attribute whitespace and text carriage returns survive round trip (0.7747ms)
+✔ file save barriers, default path, read barrier and warning outputs (9.5297ms)
+✔ file failures preserve document, history and current save path (2.3334ms)
+✔ malformed read preserves redo and previous document (3.2817ms)
+✔ batch CLI processes comments and Unicode; errors set exit code and execution continues (220.718ms)
+✔ document boundary rejects duplicate subtree ids and unowned parents (0.4279ms)
+✔ circle and ellipse scale centers and radii with floating point coordinates (3.2413ms)
+✔ all allowed geometry setters change only targeted geometry (2.9513ms)
+✔ unnamed nested shapes round trip through CLI with defaults omitted (0.3461ms)
+✔ failed save keeps prior default path and does not block undo (9.3065ms)
+✔ init read save resize each block both undo and redo, new edit cannot cross barrier (0.655ms)
+ℹ tests 61
+ℹ suites 0
+ℹ pass 61
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 542.9601
+npm notice
+npm notice New major version of npm available! 11.17.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
+PS C:\Users\lenovo\Documents\ChatGPT\高级软件开发技术\outputs\svg-editor>
