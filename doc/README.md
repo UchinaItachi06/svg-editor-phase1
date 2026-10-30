@@ -1,8 +1,8 @@
 # Lab1 Phase 1：SVG 编辑器（CLI）
 
-## 架构方案
+## 一、架构方案
 
-### 模块划分
+### 1、模块划分
 
 | 目录 | 职责 | 主要类 |
 |---|---|---|
@@ -14,17 +14,14 @@
 | src/main.ts | 组装对象，启动程序 | 仅入口，无类 |
 | test | 功能、集成与架构测试 | 不属于生产模块 |
 
-组件图已用 PlantUML 在本地渲染，可直接查看：
+PlantUML 组件图：
 
 ![模块依赖组件图](architecture.png)
 
 [PlantUML 源码](architecture.puml) · [矢量图](architecture.svg)
 
-图中实线表示生产代码的运行时依赖，虚线表示仅用于 TypeScript 类型的依赖。源码和图片一并随仓库提交。
 
-CLI 的 CommandRouter 同时承担参数适配和用例协调。对本阶段命令数量，这是可检查的集中入口；未来新增鼠标或 agent 通道时，应抽出可复用的用例服务，避免让第二个界面依赖 CLI。
-
-### 设计模式的选择与落地
+### 2、设计模式的选择与落地
 
 **Command（必需）**：每条编辑操作有具体命令对象，统一继承 EditCommand。Session.execute 调用 execute，成功后才加入 History。GroupCommand 一次修改多个节点，但只有一个历史单元。OrderCommand 用一个明确的布尔参数表达 front/back 两个方向。
 
@@ -38,7 +35,7 @@ CLI 的 CommandRouter 同时承担参数适配和用例协调。对本阶段命�
 
 **仅有的按名字分派点及待重构项**：CommandRouter 的命令名映射、ShapeFactory 的类型名映射。后续分别改为命令注册和 ShapeProvider 注册。这两处集中映射仍需编辑源代码才能扩展，已明确记录，不把它们宣称为完成的插件系统。
 
-### 依赖方向规则
+### 3、依赖方向规则
 
 | 模块 | 允许依赖 |
 |---|---|
@@ -49,11 +46,19 @@ CLI 的 CommandRouter 同时承担参数适配和用例协调。对本阶段命�
 | infrastructure | infrastructure、model、application 的存储接口、Node 文件接口和 XML 库 |
 | main | 具体组装需要的 cli、infrastructure |
 
-model 不得依赖其他层；commands 不得调用终端或磁盘；application 不得引用 CLI 或具体 SVG 文件实现；CLI 不得导入 infrastructure，具体依赖由 main 注入。这样更换文件格式或界面时，图形行为与历史规则保持独立。
+model 不得依赖其他层；
+
+commands 不得调用终端或磁盘；
+
+application 不得引用 CLI 或具体 SVG 文件实现；
+
+CLI 不得导入 infrastructure，具体依赖由 main 注入。
+
+这样更换文件格式或界面时，图形行为与历史规则保持独立。
 
 test/architecture.test.ts 自动读取生产源文件检查模块方向、核心层外部依赖、一类一文件、文件与类同名，并禁止生产代码中的 switch 和导出的过程式函数。它是静态规则检查，不是完整的语义依赖分析，仍需结合代码阅读。
 
-### 变化点假设
+### 4、变化点假设
 
 | 预计变化 | 当前决策与预留 |
 |---|---|
@@ -78,9 +83,8 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 10. save 无参数使用当前已关联文件，首次 init 后尚无路径则要求显式路径。成功 save 将该路径关联为当前路径；init 重置路径。文件写入先写同目录唯一临时文件，再 rename 替换；失败不更新文档路径或历史。未承诺断电时的磁盘持久化。
 11. tree 使用完整 width/height 属性名，undo/redo 成功输出 undone/redone 加命令名，属于结果摘要；与样例文案略有差异。错误统一 error:，一行输出。参数错误不导致进程崩溃。
 
-## 过程记录
+## 二、过程记录
 
-以下记录来自本次实际开发，没有虚构人工评审或教师确认。
 
 | 阶段 | 讨论、选择或发现 | 结果与证据 |
 |---|---|---|
@@ -94,14 +98,10 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 | 独立恢复验收 | 从 Git bundle 克隆到新目录后，发现 Windows Git 的自动 CRLF 转换导致格式检查失败 | 增加 .gitattributes 固定源码 LF、启动脚本 CRLF，重新打包后再验证独立恢复 |
 | 远程仓库 | 前期接口不支持建库、浏览器控制超时；用户随后手动创建私有仓库，Git 已成功获取远程初始化提交 | 合并保留初始化提交与本地开发历史，README 使用完整项目说明；已推送 main 和 final，仓库为 UchinaItachi06/svg-editor-phase1 |
 
-本地提交按骨架、模型、命令与历史、SVG 与 CLI、测试、文档逐步进行。提交时间为实际时间；作者采用项目本地标识 SVG Lab Development，不冒充学生个人邮箱。
+本地提交按骨架、模型、命令与历史、SVG 与 CLI、测试、文档逐步进行。提交时间为实际时间；作者采用项目本地标识 SVG Lab Development
+### 手动验收与实际判断
 
-
-### 学生手动验收与实际判断
-
-以下内容依据学生实际执行后发送的终端输出整理；不把助手的开发排错或代码讲解记为学生独立完成的活动。
-
-学生在自己的 PowerShell 中执行 npm.cmd run check，TypeScript、格式检查均通过，61 项测试全部通过。随后在 CLI 中实际执行创建、容器移动、撤销、重做、保存、错误输入和删除恢复。
+参考codex的建议，我在本地的 PowerShell 中执行 npm.cmd run check，TypeScript、格式检查均通过，61 项测试全部通过。随后在 CLI 中实际执行创建、容器移动、撤销、重做、保存、错误输入和删除恢复。
 
 | 检查 | 实际观察 | 对应判断 |
 |---|---|---|
@@ -116,30 +116,28 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 
 本轮手动验收未发现这些场景中的功能错误。它为上述行为提供实际证据，不等同于验证了全部 SVG 输入或所有边界。
 
-证据：[学生 CLI 原始输出](validation/student-cli-transcript.txt)、[学生运行检查的原始输出](validation/student-automated-check.txt)、[学生保存的 SVG](validation/student-demo.svg)。浏览器预览由助手另行完成，见下图；学生没有提供亲自浏览器检查的反馈，因此不将该项写成学生的个人观察。
+1、在自己的环境中运行自动检查
 
-![学生保存文件的浏览器预览（助手渲染）](validation/student-demo-preview.png)
+参考 Codex 提供的步骤，我在本地 PowerShell 中执行了 npm.cmd run check。输出显示 TypeScript 检查、代码格式检查均通过，61 项自动测试全部通过。我将完整输出提供给 Codex 核对，确认项目能够在自己的电脑上完成这些检查。
 
-### 关键实现说明（助手整理，供学生复核）
+2、检查删除容器与整体恢复
 
-本次补充将手动观察对应到实际代码。下面的代码导读是讲解材料，不作为学生已经完成阅读或掌握设计的证明：
+我执行 delete node 后，通过 tree 看到画布中已没有图形。随后只执行一次 undo，容器及其中的矩形、文字便全部恢复，坐标和颜色也与删除前一致。
 
-- Command：CommandRouter 把 delete node 适配为 DeleteCommand；Session.execute 调用命令，成功后才进入 History。
-- 快照撤销：EditCommand.execute 在文档副本上执行 apply，成功后保存 before/after；undo 与 redo 返回相应快照的深拷贝。
-- Composite：Group.move/scale 遍历 Shape 子节点并调用同名方法；叶子自己处理几何属性，命令无需逐一判断图形标签。
-- 失败原子性：apply 抛错时 Session 不替换当前文档，History.record 不执行，因此失败不污染文档或历史。
+这次操作验证了两个具体要求：删除容器时连同其子孙一起删除；整条删除命令对应一个撤销单元。
 
-完整调用链、代码入口和设计取舍见 [代码导读](代码导读.md)。
+3、参与文档调整和要求核对
 
-## 一致性自查
+在获得初版文档后，我对 doc/README.md 的章节组织和部分表述进行了调整。
+## 三、一致性自查
 
-### 模块划分
+### 1、模块划分
 
-实际目录与初版一致：model / commands / application / cli / infrastructure，main 仅作组装。新增 test、examples、doc/validation 均为测试或交付辅助目录，不参与生产层依赖。接口 DocumentStore 位于 application，具体实现位于 infrastructure。
+实际目录与初版一致：model / commands / application / cli / infrastructure，main 仅作组装。新增了 test、examples、doc/validation 均为测试或交付辅助目录，不参与生产层依赖。接口 DocumentStore 位于 application，具体实现位于 infrastructure。
 
 修订：从初版简要架构补全了 Memento 快照决策、跨父级分组落点、IO 历史屏障以及 SVG 子集约定；没有把尚未支持的插件或 SVG 兼容能力写成已实现。
 
-### 依赖方向
+### 2、依赖方向
 
 自动检查当前通过，且抽样核对：
 
@@ -149,9 +147,8 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 - infrastructure/FileDocumentStore 实现 DocumentStore，具体文件读写只在基础设施层。
 - model/Group 调用 Shape 的多态行为，不依赖命令或终端。
 
-当前没有已知违反所述规则的导入。工厂和命令名映射仍为后续待重构项，不把这个局限隐藏在自查结论中。
-
-## 质量保证手段
+当前没有已知违反所述规则的导入。
+## 四、质量保证手段
 
 ### 可重复检查
 
@@ -162,9 +159,13 @@ npm run check
 
 已在 Windows、Node.js 24.19.0 验证：TypeScript strict 与 unused 检查通过，Prettier 格式检查通过，61 项自动测试全部通过、零跳过。报告保存在 validation/tests.tap。
 
-### 人工验收证据
+### 人工验收
 
-学生提供的两轮真实操作已纳入本文件的过程记录；原始终端输出、保存文件及助手渲染预览位于 validation/。学生手动验收与助手自动检查分开标注。
+学生提供的两轮真实操作已纳入本文件的过程记录；
+
+原始终端输出、保存文件及助手渲染预览位于 validation/。
+
+学生手动验收与codex的自动检查分开标注。
 
 ### 功能覆盖
 
@@ -178,8 +179,4 @@ npm run check
 | 架构 | 依赖方向、核心无外部 IO、一类一文件、类文件同名、无 switch 与导出过程式函数 |
 | 演示 | flowchart.commands 回放、SVG 文件生成、Edge 实际渲染 |
 
-### 剩余限制与提交状态
 
-完整 SVG 标准兼容、插件系统、大文档性能与交互终端的所有平台差异尚未覆盖。快照历史没有容量上限。静态架构检查不替代人工审阅；有限测试不能证明所有输入正确。
-
-本地代码和文档已准备，最终版本由 Git final 标签定位。远程仓库为 https://github.com/UchinaItachi06/svg-editor-phase1，采用合并保留 GitHub 初始化提交及全部开发历史；远程 main 与 final 对应本次交付版本，代码、文档和验收证据一并发布。截止时间未从课程材料中获得，正式提交前仍需核对课程平台及私有仓库访问权限。若教师要求导入 transform 示例，应先扩展实现与测试，再确定最终提交版本。
