@@ -1,4 +1,7 @@
+  
 # Lab1 Phase 1：SVG 编辑器（CLI）
+
+Git 仓库地址：https://github.com/UchinaItachi06/svg-editor-phase1
 
 ## 一、架构方案
 
