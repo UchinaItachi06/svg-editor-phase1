@@ -1,4 +1,4 @@
-  
+
 # Lab1 Phase 1：SVG 编辑器（CLI）
 
 Git 仓库地址：https://github.com/UchinaItachi06/svg-editor-phase1
@@ -99,7 +99,7 @@ test/architecture.test.ts 自动读取生产源文件检查模块方向、核心
 | 验收扩展 | 增加架构检查、全部几何 setter、小数缩放、失败保存后路径保持等测试 | 共 61 项通过；原始报告见 validation/tests.tap |
 | 演示验收 | 回放作业中的两节点流程图版本 A，生成真实 SVG | 8 个元素，移动撤销成功；Edge 无头浏览器实际打开并截图，图像已目视检查 |
 | 独立恢复验收 | 从 Git bundle 克隆到新目录后，发现 Windows Git 的自动 CRLF 转换导致格式检查失败 | 增加 .gitattributes 固定源码 LF、启动脚本 CRLF，重新打包后再验证独立恢复 |
-| 远程仓库 | 前期接口不支持建库、浏览器控制超时；用户随后手动创建私有仓库，Git 已成功获取远程初始化提交 | 合并保留初始化提交与本地开发历史，README 使用完整项目说明；已推送 main 和 final，仓库为 UchinaItachi06/svg-editor-phase1 |
+| 远程仓库 | 手动创建了 GitHub 私有仓库 | 随后完成远程合并与推送，保留了初始化提交和本地开发历史。README 使用完整项目说明；已推送 main 和 final，仓库为 UchinaItachi06/svg-editor-phase1 |
 
 本地提交按骨架、模型、命令与历史、SVG 与 CLI、测试、文档逐步进行。提交时间为实际时间；作者采用项目本地标识 SVG Lab Development
 ### 手动验收与实际判断
@@ -162,13 +162,13 @@ npm run check
 
 已在 Windows、Node.js 24.19.0 验证：TypeScript strict 与 unused 检查通过，Prettier 格式检查通过，61 项自动测试全部通过、零跳过。报告保存在 validation/tests.tap。
 
-### 人工验收
+### 人工手动验收
 
-学生提供的两轮真实操作已纳入本文件的过程记录；
+所提供的两轮真实操作已纳入本文件的过程记录；
 
 原始终端输出、保存文件及助手渲染预览位于 validation/。
 
-学生手动验收与codex的自动检查分开标注。
+手动验收与codex的自动检查分开标注。
 
 ### 功能覆盖
 
@@ -181,5 +181,4 @@ npm run check
 | SVG 与文件 | 六类型 round-trip、文本 XML 转义、换行和回车、缺 id、重复 id、样式保留、异常 XML、未知类型/属性、读取失败、保存失败、默认路径保持 |
 | 架构 | 依赖方向、核心无外部 IO、一类一文件、类文件同名、无 switch 与导出过程式函数 |
 | 演示 | flowchart.commands 回放、SVG 文件生成、Edge 实际渲染 |
-
 
